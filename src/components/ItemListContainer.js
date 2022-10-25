@@ -19,7 +19,7 @@ const ItemListContainer = () => {
     const getProducts = () => {
         const db = getFirestore();
         const productsCollection = collection( db , "Items" );
-        const q = query(productsCollection , where("category", "==" , {category} ) );
+        const q = query(productsCollection , where("category", "==" , category ) );
         getDocs( q ).then( res => {
             const productsData = res.docs.map( d => ({id: d.id , ...d.data() } ) );
             console.log( productsData );
@@ -30,7 +30,7 @@ const ItemListContainer = () => {
 
     return (
         <div>
-            <ItemList items={products}/>
+                <ItemList items={products}/>
         </div>
     )
 }

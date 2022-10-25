@@ -24,9 +24,9 @@ const ItemDetailContainer = () => {
 
     }
     return (
-        <>
+        <section className="">
             <ItemDetail item={product} />
-        </>
+        </section>
     )
 }
 export default ItemDetailContainer
