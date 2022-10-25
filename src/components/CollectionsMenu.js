@@ -2,22 +2,17 @@ import { Link } from "react-router-dom"
 
 
 
-const CollectionsMenu = () => {
+const CollectionsMenu = ( {categoryId} , {name} ) => {
     return (
         <>
-        <div className="flex">
         <div>
-            <Link to="/category/SpringCollection" className="mr-20 ml-20" >SPRING/22</Link>
-        </div>
-        <div>
-            <Link to="/category/SummerCollection" className="mr-20 ml-20">SUMMER/23</Link>
-        </div>
-        <div>
-            <Link to="7category/SaleCollecion" className="mr-20 ml-20">/SALE</Link>
-        </div>
-
+            <Link to={`/category/${categoryId}`}>
+                <ul className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                    <li>{name}</li>
+                </ul>
+            </Link>
         </div>
         </>
-  )
+    )
 }
 export default CollectionsMenu

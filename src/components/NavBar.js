@@ -1,16 +1,26 @@
+import { Link } from "react-router-dom"
 import CartWidget from "./CartWidget"
 import CollectionsMenu from "./CollectionsMenu"
 
 
 const NavBar = ({ nombreDeEmpresa }) => {
 
+
+    const collection = [
+        { categoryId:"SummerCollection" , name:"SUMMER/23" , id:1 },
+        { categoryId:"SpringCollection" , name:"SPRING/22" , id:2 },
+        { categoryId:"SaleCollection" , name:"SALE" , id:3 }
+    ]
+
+
+
     return (
     <div className="navbar bg-base-100">
         <div className="flex-1">
-            <a className="btn btn-ghost normal-case text-xl">{ nombreDeEmpresa }</a>
+            <Link to="/" className="btn btn-ghost normal-case text-xl">{ nombreDeEmpresa }</Link>
         </div>
         <div>
-        <CollectionsMenu/>
+            { collection.map ( s => <CollectionsMenu key={s.id} {...s} />)}
         </div>
         <div className="flex-none">
             <CartWidget/>
