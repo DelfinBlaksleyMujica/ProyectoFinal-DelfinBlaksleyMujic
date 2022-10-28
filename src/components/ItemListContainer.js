@@ -12,25 +12,39 @@ const ItemListContainer = () => {
     
     const [ products , setProducts ] = useState( [] );
 
-    useEffect ( () => {
-        getProducts()
-    } , [] )
 
-    const getProducts = () => {
+    useEffect( () => {
+        const getData = async () => {
+            const db = getFirestore();    
+            const queryRef = !category ? collection(db , "Items") : query(collection(db , "Items"),where("category" , "==" , category));
+            const response = await getDocs(queryRef)
+            const productos = response.docs.map((doc) => {
+            const newProduct = {...doc.data(), id:doc.id};
+            return newProduct;
+        });
+        setTimeout(() => {
+            setProducts(productos);
+        } , 2000 )
+        }
+        getData();
+    } , [ category ])
+
+
+
+    const getData = async () => {
         const db = getFirestore();
-        const productsCollection = collection( db , "Items" );
-        const q = query(productsCollection , where("category", "==" , category ) );
-        getDocs( q ).then( res => {
-            const productsData = res.docs.map( d => ({id: d.id , ...d.data() } ) );
-            console.log( productsData );
-            setProducts( productsData );
-        })
+        const queryRef = 
+        !category 
+        ?
+        collection(db , "Items")
+        :
+        query(collection(db , "Items"),where("category" , "==" , category));
+        const response = await getDocs( queryRef )    
     }
-
 
     return (
         <div>
-                <ItemList items={products}/>
+            <ItemList items={products}/>
         </div>
     )
 }

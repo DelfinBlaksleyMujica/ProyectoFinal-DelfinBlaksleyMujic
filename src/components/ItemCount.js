@@ -2,7 +2,7 @@ import { useEffect , useState } from "react"
 
 
 
-const ItemCount = ({stock}) => {
+const ItemCount = ( {stock} ) => {
 
     
     const [counter, setCounter] = useState(0);

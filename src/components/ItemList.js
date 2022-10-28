@@ -9,8 +9,7 @@ const ItemList = ( {items} ) => {
 
     return (
         <div className="flex justify-center">
-    
-            <div className="flex justify-center flex-wrap flex-row w-10/12">
+            <div className="flex justify-center flex-wrap flex-row w-10/12 mt-20">
                 { items.map( p => <Item key={p.id} {...p} />) }
             </div>
         
