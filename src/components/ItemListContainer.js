@@ -5,9 +5,23 @@ import Item from "./Item"
 import { useParams } from "react-router-dom";
 
 
+const Loading = () => {
+    return(
+        <section className="flex w-full justify-center ">
+            <div className="flex-column justify-center text-center">
+                <img className="loading__logo" src="/images/ActivaLogo.png" alt="" />
+                <button className="btn loading">lOADING</button>
+            </div>
+            
+        </section>
+    )
+}
+
 const ItemListContainer = () => {
 
     const { category } = useParams();
+
+    const [ loading , setLoading ] = useState(true);
 
     
     const [ products , setProducts ] = useState( [] );
@@ -23,29 +37,30 @@ const ItemListContainer = () => {
             return newProduct;
         });
         setTimeout(() => {
-            setProducts(productos);
+            setProducts(productos); 
+            setLoading(false)
         } , 2000 )
         }
+        
         getData();
+        
     } , [ category ])
 
 
-
-    const getData = async () => {
-        const db = getFirestore();
-        const queryRef = 
-        !category 
-        ?
-        collection(db , "Items")
-        :
-        query(collection(db , "Items"),where("category" , "==" , category));
-        const response = await getDocs( queryRef )    
-    }
-
     return (
-        <div>
-            <ItemList items={products}/>
-        </div>
+        <>
+
+        { loading ? <Loading/> : <div>
+            <section className="flex w-full justify-center">
+                <h1 className="text-5xl border-b-2 border-red-900 w-4/5 text-center"> {category} </h1>
+            </section>
+            <div>
+                <ItemList items={products}/>
+            </div>
+        </div>}
+        
+        </>
+        
     )
 }
 export default ItemListContainer

@@ -3,16 +3,16 @@ import ItemCount from "./ItemCount"
 
 const ItemDetail = ( {item} ) => {
 
-  const { addToCart } = useCart()
+  const { addToCart  } = useCart()
 
 
-  const addHandler = () => {
-    addToCart( item )
-
+  const addHandler = ( cantidad ) => {
+    addToCart( {...item , cantidad} )
   }
 
 
   return (
+    <>
     <section className="w-full flex justify-center">
       <div className="card lg:card-side bg-base-100 shadow-xl w-10/12" >
         <figure><img className="h-96 rounded-xl pl-10" src={item.image} alt="Album"/></figure>
@@ -24,14 +24,14 @@ const ItemDetail = ( {item} ) => {
             <li className="pl-10 pt-5">{item.description}</li>
           </div>
           <div>$US { item.price }</div>
-          <ItemCount stock={item.stock} />
           <p>STOCK:{item.stock} </p>
-          <div className="card-actions justify-end">
-            <button onClick={ addHandler } className="btn btn-primary">Add to shopping Cart</button>
-          </div>
         </div>
       </div>
     </section>
+    <div></div>
+    <ItemCount stock={item.stock} addHandler={addHandler} />
+    </>
+    
     
   )
 }

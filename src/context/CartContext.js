@@ -1,12 +1,13 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 
 const CartContext = createContext({
     products: [] ,
     addToCart: () => {},
     clearCart: () => {},
-    totalProductsCount:0,
-    subTotalProducts: () => {},
+    getQuantity: () => {},
+    getTotal:() => {},
+    
 
 });
 
@@ -15,26 +16,43 @@ const useCart = () => {
 }
 
 const CartContextProvider = ( { children } ) => {
+    
 
     const [ products , setProducts ] = useLocalStorage("Products in cart" , [] );
     
+
+
     const addToCart = ( product ) =>{
         setProducts( products => [...products , product ])
     }
 
-    
 
     const clearCart = () => {
         setProducts( [] );
     }
+
+    const getQuantity = () => {
+        let cant = 0
+        products.forEach( (e) => cant += e.cantidad)
+        return cant
+    }
+
+    
+
+    const getTotal = () => {
+        let total = 0
+        products.forEach( (e) => total += (e.cantidad * e.price))
+        return total
+    }
+
 
 
     const context = {
         products: products ,
         addToCart: addToCart,
         clearCart: clearCart,
-        totalProductsCount:products.length,
-        subTotalProducts: products.reduce(( acc , el ) => acc + el.price , 0)
+        getQuantity: getQuantity,
+        getTotal: getTotal,
     }
 
 

@@ -2,7 +2,7 @@ import { useEffect , useState } from "react"
 
 
 
-const ItemCount = ( {stock} ) => {
+const ItemCount = ( { stock , addHandler } ) => {
 
     
     const [counter, setCounter] = useState(0);
@@ -27,11 +27,18 @@ const ItemCount = ( {stock} ) => {
     }
     
     return (
-    <div className="flex justify-center w-full">
-        <button className="btn m-5" onClick={ takeItem }>-</button>
-        <div className="m-8">{ counter }</div>
-        <button className="btn m-5" onClick={ addItem }>+</button>
+    <div className="flex flex-col">
+        <div className="flex justify-center w-full">
+            <button className="btn m-5" onClick={ takeItem }>-</button>
+            <div className="m-8">{ counter }</div>
+            <button className="btn m-5" onClick={ addItem }>+</button>
+        </div>
+        <div className="card-actions justify-end">
+            <button onClick={ ()=> addHandler(counter) } className="btn btn-primary">Add to shopping Cart</button>
+        </div>
+   
     </div>
+    
     )
 }
 export default ItemCount
