@@ -2,6 +2,7 @@ import React,{ useState } from 'react';
 import { useCart } from "../context/CartContext";
 import { addDoc , collection , getFirestore } from "firebase/firestore";
 import CartProductsDetail from "./CartProductsDetail";
+import Swal from 'sweetalert2';
 
 
 
@@ -23,6 +24,13 @@ export const UserForm = () => {
     const ordersCollection = collection( db , "Orders")
     addDoc( ordersCollection , order ).then( ({id}) => {
       console.log( id );
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        text: "Tu compra se ha realizado con éxito con el código de orden " + id + ". Te llegará un mail al e-mail que indicaste en el formulario con todos los detalles que necesitas tener para la entrega. Gracias por comprar con nosotros!",
+        showConfirmButton: false,
+        timer: 9500
+      })
     clearCart()
     })
   }
@@ -52,10 +60,14 @@ const handleChange4 = event => {
   const handleClick = event => {
     event.preventDefault();
 
-    if ( (email.trim().length !== 0) && (name.trim().length !==0) && (adress.trim().length !==0) && (telephone.trim().length !==0) ){
-        putOrder()
+    if ( (email.trim().length !== 0) && (name.trim().length !==0) && (adress.trim().length !==0) && (telephone.trim().length !==0) && (products.length > 0 ) ){
+        putOrder();
     }else { 
-        alert("Todos los campos deben estar competos para finalizar la compra")
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Verifica que todos los campos estén completos y haya productos en tu carrito para poder finalizar la compra.',
+      })
     }
 }
 
@@ -86,13 +98,13 @@ const handleChange4 = event => {
         </div>
         <div className="flex flex-col  items-center mb-10">
           <label>E-mail:</label>
-          <input type="email" name="email" id="email" onChange={ handleChange4 } className="border border-indigo-900" required/>
+          <input type="e-mail" name="email" id="email" onChange={ handleChange4 } className="border border-indigo-900" required/>
         </div>
   
       </form>
     </div>
     <div className="flex w-full justify-center">
-      <button className="btn mt-10" onClick={handleClick}>Confirmar Compra</button>
+      <button className="btn mt-10 mb-10" onClick={handleClick}>Confirmar Compra</button>
     </div>
     </>
   )

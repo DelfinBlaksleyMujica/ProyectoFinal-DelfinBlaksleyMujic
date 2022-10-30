@@ -1,4 +1,5 @@
 import { useEffect , useState } from "react"
+import Swal from "sweetalert2";
 
 
 
@@ -15,7 +16,13 @@ const ItemCount = ( { stock , addHandler } ) => {
         if (counter < stock ) {
             setCounter(counter + 1);
         }else{
-            alert("No hay más unidades en stock")
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                text: "No hay mas unidades en stock.",
+                showConfirmButton: false,
+                timer: 3000
+                })
         }
     }
 
@@ -27,7 +34,7 @@ const ItemCount = ( { stock , addHandler } ) => {
     }
     
     return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center">
         <div className="flex justify-center w-full">
             <button className="btn m-5" onClick={ takeItem }>-</button>
             <div className="m-8">{ counter }</div>

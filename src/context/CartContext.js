@@ -30,6 +30,7 @@ const CartContextProvider = ( { children } ) => {
     const clearCart = () => {
         setProducts( [] );
     }
+    
 
     const getQuantity = () => {
         let cant = 0

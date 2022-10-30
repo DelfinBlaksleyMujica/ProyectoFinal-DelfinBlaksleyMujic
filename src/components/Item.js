@@ -10,7 +10,7 @@ const Item = ({ id , slug, name , price , image , category }) => {
                     <h2 className="card-title">{name}</h2>
                     <p>$US {price}</p>
                     <div className="card-actions justify-end">
-                    <Link to={`/item/${id}`}><button className="btn btn-primary">Buy Now</button></Link>
+                    <Link to={`/item/${id}`}><button className="btn btn-primary bg-black-600">Buy Now</button></Link>
                 </div>
             </div>
         </div>

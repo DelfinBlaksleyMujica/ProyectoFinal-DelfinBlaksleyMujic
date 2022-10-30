@@ -7,6 +7,7 @@ import ItemList from './components/ItemList';
 import ItemDetailContainer from './components/ItemDetailContainer';
 import Cart from './components/Cart';
 import { useCart , CartContextProvider} from "./context/CartContext";
+import PageNotFound from './components/PageNotFound';
 
 
 
@@ -20,6 +21,7 @@ function App() {
       <Route path="/category/:category" element={<ItemListContainer/>} />
       <Route path="/item/:id" element={<ItemDetailContainer/>} />
       <Route path="/Cart" element={<Cart />} />
+      <Route path={ "*" } element={<PageNotFound/>} />
       </Routes>
     </BrowserRouter>
       </CartContextProvider>
